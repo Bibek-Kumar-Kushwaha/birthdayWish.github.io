@@ -1,25 +1,38 @@
 import React, { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Landing from "./Components/Landing";
-import Wish from "./Components/Wish";
+import FinalEnhancedWish from "./Components/FinalEnhancedWish";
 
 const App = () => {
-  const [isCelebrationStarted, setIsCelebrationStarted] = useState(false);
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+  const [currentView, setCurrentView] = useState('landing');
+  const [userData, setUserData] = useState(null);
 
-  const handleStartCelebration = (name, message) => {
-    setName(name);
-    setMessage(message);
-    setIsCelebrationStarted(true);
+  const handleStartCelebration = (data) => {
+    setUserData(data);
+    setCurrentView('wish');
+  };
+
+  const handleBackToLanding = () => {
+    setCurrentView('landing');
+    setUserData(null);
   };
 
   return (
-    <div>
-      {isCelebrationStarted ? (
-        <Wish name={name} message={message} />
-      ) : (
-        <Landing onStart={handleStartCelebration} />
-      )}
+    <div className="min-h-screen">
+      <AnimatePresence mode="wait">
+        {currentView === 'landing' ? (
+          <Landing 
+            key="landing" 
+            onStart={handleStartCelebration} 
+          />
+        ) : (
+          <FinalEnhancedWish 
+            key="wish" 
+            userData={userData} 
+            onBack={handleBackToLanding} 
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

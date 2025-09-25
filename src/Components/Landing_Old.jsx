@@ -87,8 +87,8 @@ const Landing = ({ onStart }) => {
           🎁
         </motion.div>
         
-        {/* Floating Particles */}
-        {Array.from({ length: 20 }).map((_, i) => (
+        {/* Floating Particles - Reduced on mobile */}
+        {Array.from({ length: window.innerWidth < 640 ? 15 : 30 }).map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-white rounded-full opacity-30"
@@ -394,6 +394,7 @@ const Landing = ({ onStart }) => {
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                background: "linear-gradient(45deg, #FFD700, #FFA500)"
               }}
               whileTap={{ scale: 0.95 }}
               type="submit"
@@ -405,6 +406,13 @@ const Landing = ({ onStart }) => {
             >
               🎉 Create Amazing Birthday Experience! 🎉
             </motion.button>
+              }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 rounded-2xl text-xl font-bold shadow-lg transition-all duration-300 border-2 border-yellow-300"
+            >
+              🎊 Create Birthday Magic! 🎊
+            </motion.button>
           </div>
         </motion.form>
 
@@ -412,12 +420,9 @@ const Landing = ({ onStart }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.3 }}
-          className="mt-4 sm:mt-6 text-white text-center"
-          style={{
-            textShadow: '0 0 10px rgba(0,0,0,0.3)'
-          }}
+          className="mt-6 text-white/80 text-center"
         >
-          <p className="text-sm sm:text-lg px-2">
+          <p className="text-lg">
             ✨ Features: Music 🎵 • Animations 🎭 • Social Share 📱 • Download 💾
           </p>
         </motion.div>
